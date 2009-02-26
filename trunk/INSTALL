@@ -1,4 +1,6 @@
 Installing GLogScrobbler
 ========================
 
-TODO
+You can use MonoDevelop to compile and install
+GLogScrobbler. Create a tarball and use autotools to
+install from there.
