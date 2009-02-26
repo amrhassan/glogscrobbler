@@ -1,7 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=GLogScrobbler
-Exec=glogscrobbler
-Terminal=false
-GenericName=A Last.fm Log Scrobbler
