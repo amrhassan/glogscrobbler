@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=Application
-Name=GNONE Log Scrobbler
+Name=GNOME Log Scrobbler
 Exec=glogscrobbler
 Terminal=false
 GenericName=A Last.fm Log Scrobbler
