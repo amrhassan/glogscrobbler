@@ -85,6 +85,36 @@ namespace GLogScrobbler
 			}
 		}
 		
+		public static bool NewestFirst
+		{
+			get {
+				return (bool)getValue("show_newest_first", false);
+			}
+			set {
+				setValue("show_newest_first", value);
+			}
+		}
+		
+		public static bool ShowArt
+		{
+			get {
+				return (bool)getValue("show_art", true);
+			}
+			set {
+				setValue("show_art", value);
+			}
+		}
+		
+		internal static string APIKey
+		{
+			get { return "a62925b0aba35e85dd7542921b143bfb"; }
+		}
+		
+		internal static string APISecret
+		{
+			get { return "c15894a9581ea31c8ab8b8d09f69ea26"; }
+		}
+		
 		public static void AddRecentMountpoint(string path)
 		{
 			if (! RecentMountPoints.Contains(path))

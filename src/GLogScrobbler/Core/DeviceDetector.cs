@@ -19,53 +19,28 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using Gtk;
 
-namespace GLogScrobbler
+namespace GLogScrobbler.Core
 {
 	
 	
 	public static class DeviceDetector
 	{
 		
-		public static string GetMountPoint(Window parent)
+		public static string[] GetDevicesWithLogs()
 		{
+			// A list of all available devices
 			List<string> devices = new List<string>(System.Environment.GetLogicalDrives());
 			devices.AddRange(SettingsProxy.RecentMountPoints.Split(';'));
 			
+			// Filter them to ones with logs
 			List<string> devicesWithLogs = new List<string>();
-			string mountPoint = "";
 			
 			foreach (string device in devices)
 				if (PathHasLog(device) && !devicesWithLogs.Contains(device))
 					devicesWithLogs.Add(device);
 			
-			if (devicesWithLogs.Count == 0)
-			{
-				ChooseDeviceDialog dialog = new ChooseDeviceDialog(parent);
-				if ((ResponseType)dialog.Run() == ResponseType.Ok)
-					mountPoint = dialog.GetSelectedPath();
-			}
-			else if (devicesWithLogs.Count == 1)
-			{
-				mountPoint = devicesWithLogs[0];
-			}
-			else if(devicesWithLogs.Count > 1)
-			{
-				ChooseDeviceDialog dialog = new ChooseDeviceDialog(parent, devicesWithLogs.ToArray());
-				if ((ResponseType)dialog.Run() == ResponseType.Ok)
-					mountPoint = dialog.GetSelectedPath();
-			}
-			
-			if (mountPoint.Length > 0)
-			{
-				SettingsProxy.AddRecentMountpoint(mountPoint);
-				return mountPoint;
-			}
-			else
-			{
-				return "";
-			}
+			return devicesWithLogs.ToArray();
 		}
 		
 		public static bool PathHasLog(string path)

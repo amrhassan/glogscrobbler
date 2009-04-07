@@ -19,11 +19,10 @@
 using System;
 using Gtk;
 using System.Collections.Generic;
+using GLogScrobbler.Core;
 
 namespace GLogScrobbler
 {
-	
-	
 	public partial class ChooseDeviceDialog : Gtk.Dialog
 	{
 		private List<string> mountPoints;
@@ -47,9 +46,6 @@ namespace GLogScrobbler
 			mountPoints = new List<string>();
 			initCombo();
 			updateCombo();
-			
-			textLabel.Text = "No devices with log files could be detected.";
-			textLabel.Text += "\nPlease choose your device's mount point manually.";
 		}
 		
 		private void initCombo()
@@ -72,7 +68,10 @@ namespace GLogScrobbler
 			foreach(string path in mountPoints)
 				model.AppendValues("gtk-directory", path);
 			
-			model.AppendValues("gtk-directory", "Browse...");
+			if (mountPoints.Count == 0)
+				expander.Expanded = true;
+			else
+				devicesBox.Active = mountPoints.Count - 1;
 		}
 		
 		public string GetSelectedPath()
@@ -89,40 +88,24 @@ namespace GLogScrobbler
 		}
 
 		protected virtual void OnDevicesBoxChanged (object sender, System.EventArgs e)
-		{
-			if (devicesBox.Active == mountPoints.Count)
-			{
-				FileChooserDialog chooserDialog = 
-					new FileChooserDialog("Choose a path...", this, FileChooserAction.SelectFolder,
-					                      "gtk-open", ResponseType.Ok,
-					                      "gtk-cancel", ResponseType.Cancel);
-				
-				if ((ResponseType)chooserDialog.Run() == ResponseType.Ok)
-				{
-					if (DeviceDetector.PathHasLog(chooserDialog.Filename))
-					{
-						mountPoints.Add(chooserDialog.Filename);
-						chooserDialog.Destroy();
-						updateCombo();
-						devicesBox.Active = mountPoints.Count - 1;
-					}
-					else
-					{
-						chooserDialog.Destroy();
-						
-						MessageHandler.ShowError(this, "Log not found",
-						                           "The chosen path does not contain a valid log file.");
-						updateCombo();
-					}
-				}
-				else
-					updateCombo();
-			}
-			
+		{			
 			if (devicesBox.Active >= 0)
 				buttonOk.Sensitive = true;
 			else
 				buttonOk.Sensitive = false;
+		}
+
+		protected virtual void OnFileChooserCurrentFolderChanged (object sender, System.EventArgs e)
+		{
+			if (DeviceDetector.PathHasLog(fileChooser.Filename))
+			{
+				if (!mountPoints.Contains(fileChooser.Filename))
+				{
+					SettingsProxy.AddRecentMountpoint(fileChooser.Filename);
+					mountPoints.Add(fileChooser.Filename);
+					updateCombo();
+				}
+			}
 		}
 	}
 }

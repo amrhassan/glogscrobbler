@@ -1,4 +1,4 @@
-// Main.cs
+// CouldNotFetchArtException.cs
 // 
 // Copyright (C) 2009 Amr Hassan
 //
@@ -15,24 +15,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
-using Gtk;
-using System.IO;
 
-namespace GLogScrobbler
+using System;
+
+namespace Art
 {
-	class MainClass
+	
+	
+	public class CouldNotFetchArtException : Exception
 	{
-		public static void Main (string[] args)
+		
+		public CouldNotFetchArtException(string source)
+			:base("Could not fetch art for " + source)
 		{
-			// Configure logging
-			log4net.Config.BasicConfigurator.Configure();
-			
-			Gdk.Threads.Init();
-			Application.Init();
-			GUI.MainWindow win = new GUI.MainWindow();
-			win.Show ();
-			Application.Run ();
 		}
 	}
 }

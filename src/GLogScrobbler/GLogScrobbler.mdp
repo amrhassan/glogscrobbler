@@ -16,21 +16,24 @@
   <Contents>
     <File name="gtk-gui/gui.stetic" subtype="Code" buildaction="EmbedAsResource" />
     <File name="gtk-gui/generated.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
     <File name="Main.cs" subtype="Code" buildaction="Compile" />
     <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="glogscrobbler.desktop" subtype="Code" buildaction="FileCopy" DeployService.TargetDirectoryId="Linux.DesktopApplications" />
-    <File name="ScrobblesLog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/GLogScrobbler.MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="SubmitDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/GLogScrobbler.SubmitDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="DeviceDetector.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChooseDeviceDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/GLogScrobbler.ChooseDeviceDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="SettingsProxy.cs" subtype="Code" buildaction="Compile" />
-    <File name="LastfmAccountDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/GLogScrobbler.LastfmAccountDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="MessageHandler.cs" subtype="Code" buildaction="Compile" />
+    <File name="Core" subtype="Directory" buildaction="Compile" />
+    <File name="Core/DeviceDetector.cs" subtype="Code" buildaction="Compile" />
+    <File name="GUI" subtype="Directory" buildaction="Compile" />
+    <File name="GUI/MainWindow.cs" subtype="Code" buildaction="Compile" />
+    <File name="GUI/LastfmAccountDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="GUI/ChooseDeviceDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="GUI/MessageHandler.cs" subtype="Code" buildaction="Compile" />
+    <File name="gtk-gui/GLogScrobbler.GUI.MainWindow.cs" subtype="Code" buildaction="Compile" />
+    <File name="Core/ScrobblesLog.cs" subtype="Code" buildaction="Compile" />
+    <File name="Core/SettingsProxy.cs" subtype="Code" buildaction="Compile" />
+    <File name="resources/album.png" subtype="Code" buildaction="EmbedAsResource" />
+    <File name="Core/RelativeTime.cs" subtype="Code" buildaction="Compile" />
+    <File name="GUI/PixbufUtils.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -42,6 +45,9 @@
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Gac" localcopy="True" refto="gconf-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="gnome-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <ProjectReference type="Project" localcopy="True" refto="libart-cil" />
+    <ProjectReference type="Gac" localcopy="True" refto="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b" />
     <ProjectReference type="Assembly" localcopy="True" refto="../lastfm-sharp/lastfm-sharp.dll" />
   </References>
   <Deployment.LinuxDeployData />
