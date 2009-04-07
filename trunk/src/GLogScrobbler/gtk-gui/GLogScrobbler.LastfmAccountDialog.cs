@@ -15,8 +15,6 @@ namespace GLogScrobbler {
         
         private Gtk.VBox vbox6;
         
-        private Gtk.Label label8;
-        
         private Gtk.VBox vbox2;
         
         private Gtk.HBox hbox1;
@@ -65,17 +63,6 @@ namespace GLogScrobbler {
             this.vbox6.Spacing = 6;
             this.vbox6.BorderWidth = ((uint)(3));
             // Container child vbox6.Gtk.Box+BoxChild
-            this.label8 = new Gtk.Label();
-            this.label8.Name = "label8";
-            this.label8.Xalign = 0F;
-            this.label8.LabelProp = Mono.Unix.Catalog.GetString("<b>Enter Last.fm account credentials:</b>");
-            this.label8.UseMarkup = true;
-            this.vbox6.Add(this.label8);
-            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.vbox6[this.label8]));
-            w2.Position = 0;
-            w2.Expand = false;
-            w2.Fill = false;
-            // Container child vbox6.Gtk.Box+BoxChild
             this.vbox2 = new Gtk.VBox();
             this.vbox2.Name = "vbox2";
             this.vbox2.Spacing = 6;
@@ -89,10 +76,10 @@ namespace GLogScrobbler {
             this.image1.Name = "image1";
             this.image1.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-authentication", Gtk.IconSize.Dialog, 48);
             this.hbox1.Add(this.image1);
-            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.hbox1[this.image1]));
-            w3.Position = 0;
-            w3.Expand = false;
-            w3.Fill = false;
+            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox1[this.image1]));
+            w2.Position = 0;
+            w2.Expand = false;
+            w2.Fill = false;
             // Container child hbox1.Gtk.Box+BoxChild
             this.vbox3 = new Gtk.VBox();
             this.vbox3.Name = "vbox3";
@@ -106,10 +93,10 @@ namespace GLogScrobbler {
             this.label1.Name = "label1";
             this.label1.LabelProp = Mono.Unix.Catalog.GetString("Username");
             this.hbox2.Add(this.label1);
-            Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.hbox2[this.label1]));
-            w4.Position = 0;
-            w4.Expand = false;
-            w4.Fill = false;
+            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.hbox2[this.label1]));
+            w3.Position = 0;
+            w3.Expand = false;
+            w3.Fill = false;
             // Container child hbox2.Gtk.Box+BoxChild
             this.usernameEntry = new Gtk.Entry();
             this.usernameEntry.CanFocus = true;
@@ -117,13 +104,13 @@ namespace GLogScrobbler {
             this.usernameEntry.IsEditable = true;
             this.usernameEntry.InvisibleChar = '●';
             this.hbox2.Add(this.usernameEntry);
-            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox2[this.usernameEntry]));
-            w5.Position = 1;
+            Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.hbox2[this.usernameEntry]));
+            w4.Position = 1;
             this.vbox3.Add(this.hbox2);
-            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbox2]));
-            w6.Position = 0;
-            w6.Expand = false;
-            w6.Fill = false;
+            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbox2]));
+            w5.Position = 0;
+            w5.Expand = false;
+            w5.Fill = false;
             // Container child vbox3.Gtk.Box+BoxChild
             this.hbox3 = new Gtk.HBox();
             this.hbox3.Name = "hbox3";
@@ -133,10 +120,10 @@ namespace GLogScrobbler {
             this.label2.Name = "label2";
             this.label2.LabelProp = Mono.Unix.Catalog.GetString("Password ");
             this.hbox3.Add(this.label2);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox3[this.label2]));
-            w7.Position = 0;
-            w7.Expand = false;
-            w7.Fill = false;
+            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.hbox3[this.label2]));
+            w6.Position = 0;
+            w6.Expand = false;
+            w6.Fill = false;
             // Container child hbox3.Gtk.Box+BoxChild
             this.passwordEntry = new Gtk.Entry();
             this.passwordEntry.CanFocus = true;
@@ -145,45 +132,45 @@ namespace GLogScrobbler {
             this.passwordEntry.Visibility = false;
             this.passwordEntry.InvisibleChar = '●';
             this.hbox3.Add(this.passwordEntry);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox3[this.passwordEntry]));
-            w8.Position = 1;
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox3[this.passwordEntry]));
+            w7.Position = 1;
             this.vbox3.Add(this.hbox3);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbox3]));
-            w9.Position = 1;
-            w9.Expand = false;
-            w9.Fill = false;
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox3[this.hbox3]));
+            w8.Position = 1;
+            w8.Expand = false;
+            w8.Fill = false;
             this.hbox1.Add(this.vbox3);
-            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
-            w10.Position = 1;
+            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
+            w9.Position = 1;
             this.vbox2.Add(this.hbox1);
-            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
-            w11.Position = 0;
-            w11.Expand = false;
-            w11.Fill = false;
+            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
+            w10.Position = 0;
+            w10.Expand = false;
+            w10.Fill = false;
             // Container child vbox2.Gtk.Box+BoxChild
             this.hseparator1 = new Gtk.HSeparator();
             this.hseparator1.Name = "hseparator1";
             this.vbox2.Add(this.hseparator1);
-            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox2[this.hseparator1]));
-            w12.Position = 1;
+            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox2[this.hseparator1]));
+            w11.Position = 1;
+            w11.Expand = false;
+            w11.Fill = false;
+            this.vbox6.Add(this.vbox2);
+            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox6[this.vbox2]));
+            w12.Position = 0;
             w12.Expand = false;
             w12.Fill = false;
-            this.vbox6.Add(this.vbox2);
-            Gtk.Box.BoxChild w13 = ((Gtk.Box.BoxChild)(this.vbox6[this.vbox2]));
-            w13.Position = 1;
+            w1.Add(this.vbox6);
+            Gtk.Box.BoxChild w13 = ((Gtk.Box.BoxChild)(w1[this.vbox6]));
+            w13.Position = 0;
             w13.Expand = false;
             w13.Fill = false;
-            w1.Add(this.vbox6);
-            Gtk.Box.BoxChild w14 = ((Gtk.Box.BoxChild)(w1[this.vbox6]));
-            w14.Position = 0;
-            w14.Expand = false;
-            w14.Fill = false;
             // Internal child GLogScrobbler.LastfmAccountDialog.ActionArea
-            Gtk.HButtonBox w15 = this.ActionArea;
-            w15.Name = "dialog1_ActionArea";
-            w15.Spacing = 6;
-            w15.BorderWidth = ((uint)(5));
-            w15.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
+            Gtk.HButtonBox w14 = this.ActionArea;
+            w14.Name = "dialog1_ActionArea";
+            w14.Spacing = 6;
+            w14.BorderWidth = ((uint)(5));
+            w14.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
             // Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
             this.buttonCancel = new Gtk.Button();
             this.buttonCancel.CanDefault = true;
@@ -193,9 +180,9 @@ namespace GLogScrobbler {
             this.buttonCancel.UseUnderline = true;
             this.buttonCancel.Label = "gtk-cancel";
             this.AddActionWidget(this.buttonCancel, -6);
-            Gtk.ButtonBox.ButtonBoxChild w16 = ((Gtk.ButtonBox.ButtonBoxChild)(w15[this.buttonCancel]));
-            w16.Expand = false;
-            w16.Fill = false;
+            Gtk.ButtonBox.ButtonBoxChild w15 = ((Gtk.ButtonBox.ButtonBoxChild)(w14[this.buttonCancel]));
+            w15.Expand = false;
+            w15.Fill = false;
             // Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
             this.buttonOk = new Gtk.Button();
             this.buttonOk.CanDefault = true;
@@ -205,10 +192,10 @@ namespace GLogScrobbler {
             this.buttonOk.UseUnderline = true;
             this.buttonOk.Label = "gtk-ok";
             this.AddActionWidget(this.buttonOk, -5);
-            Gtk.ButtonBox.ButtonBoxChild w17 = ((Gtk.ButtonBox.ButtonBoxChild)(w15[this.buttonOk]));
-            w17.Position = 1;
-            w17.Expand = false;
-            w17.Fill = false;
+            Gtk.ButtonBox.ButtonBoxChild w16 = ((Gtk.ButtonBox.ButtonBoxChild)(w14[this.buttonOk]));
+            w16.Position = 1;
+            w16.Expand = false;
+            w16.Fill = false;
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }

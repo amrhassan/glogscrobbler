@@ -1,4 +1,4 @@
-// Main.cs
+// ArtTypes.cs
 // 
 // Copyright (C) 2009 Amr Hassan
 //
@@ -15,24 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
-using Gtk;
-using System.IO;
 
-namespace GLogScrobbler
+using System;
+
+namespace Art
 {
-	class MainClass
+	
+	
+	public string enum ArtTypes
 	{
-		public static void Main (string[] args)
-		{
-			// Configure logging
-			log4net.Config.BasicConfigurator.Configure();
-			
-			Gdk.Threads.Init();
-			Application.Init();
-			GUI.MainWindow win = new GUI.MainWindow();
-			win.Show ();
-			Application.Run ();
-		}
+		Album = "album";
 	}
 }

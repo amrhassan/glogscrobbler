@@ -4,7 +4,7 @@
     <images-root-path>..</images-root-path>
     <target-gtk-version>2.12.1</target-gtk-version>
   </configuration>
-  <widget class="Gtk.Window" id="GLogScrobbler.MainWindow" design-size="588 405">
+  <widget class="Gtk.Window" id="GLogScrobbler.GUI.MainWindow" design-size="528 405">
     <action-group name="Default">
       <action id="LogAction">
         <property name="Type">Action</property>
@@ -69,8 +69,56 @@
         <property name="ShortLabel" translatable="yes">_Preferences</property>
         <property name="StockId">gtk-preferences</property>
       </action>
+      <action id="ViewAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_View</property>
+        <property name="ShortLabel" translatable="yes">_View</property>
+      </action>
+      <action id="OldestFirstAction">
+        <property name="Type">Radio</property>
+        <property name="Label" translatable="yes">_Oldest First</property>
+        <property name="ShortLabel" translatable="yes">_Oldest First</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <property name="Value">0</property>
+        <property name="Group">group1</property>
+      </action>
+      <action id="NewestFirstAction">
+        <property name="Type">Radio</property>
+        <property name="Label" translatable="yes">_Newest First</property>
+        <property name="ShortLabel" translatable="yes">_Newest First</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <property name="Value">0</property>
+        <property name="Group">group1</property>
+        <signal name="Toggled" handler="OnNewestFirstActionToggled" />
+      </action>
+      <action id="ShowArtAction">
+        <property name="Type">Toggle</property>
+        <property name="Label" translatable="yes">_Show Art</property>
+        <property name="ShortLabel" translatable="yes">_Show Art</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnShowArtActionToggled" />
+      </action>
+      <action id="clearAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes" />
+        <property name="Sensitive">False</property>
+        <property name="StockId">gtk-clear</property>
+        <property name="Tooltip" translatable="yes">Clear this log from the device</property>
+        <signal name="Activated" handler="OnClearActionActivated" />
+      </action>
+      <action id="CancelSubmitAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">CancelSubmit</property>
+        <property name="ShortLabel" translatable="yes">CancelSubmit</property>
+        <signal name="Activated" handler="OnCancelSubmitActionActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
+    <property name="Visible">False</property>
     <property name="Title" translatable="yes">GNOME Log Scrobbler</property>
     <property name="Icon">stock:gtk-go-up Menu</property>
     <property name="WindowPosition">Center</property>
@@ -86,12 +134,18 @@
                 <node type="Menuitem" action="OpenAction" />
                 <node type="Menuitem" action="SubmitAction" />
                 <node type="Separator" />
+                <node type="Menuitem" action="clearAction" />
+                <node type="Separator" />
                 <node type="Menuitem" action="QuitAction" />
               </node>
               <node type="Menu" action="EditAction">
                 <node type="Menuitem" action="LastFmAccountAction" />
+              </node>
+              <node type="Menu" action="ViewAction">
+                <node type="Menuitem" action="OldestFirstAction" />
+                <node type="Menuitem" action="NewestFirstAction" />
                 <node type="Separator" />
-                <node type="Menuitem" action="PreferencesAction" />
+                <node type="Menuitem" action="ShowArtAction" />
               </node>
               <node type="Menu" action="HelpAction">
                 <node type="Menuitem" action="AboutAction" />
@@ -114,6 +168,8 @@
             <node name="MainToolbar" type="Toolbar">
               <node type="Toolitem" action="OpenAction" />
               <node type="Toolitem" action="SubmitAction" />
+              <node type="Separator" />
+              <node type="Toolitem" action="clearAction" />
             </node>
           </widget>
           <packing>
@@ -134,6 +190,7 @@
                 <property name="HasDefault">True</property>
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
+                <property name="HeadersVisible">False</property>
                 <property name="RulesHint">True</property>
               </widget>
             </child>
@@ -141,6 +198,47 @@
           <packing>
             <property name="Position">2</property>
             <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.HBox" id="progressBox">
+            <property name="MemberName" />
+            <property name="Visible">False</property>
+            <property name="Spacing">6</property>
+            <property name="BorderWidth">3</property>
+            <child>
+              <widget class="Gtk.ProgressBar" id="scrobblingProgressBar">
+                <property name="MemberName" />
+                <property name="Ellipsize">Middle</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Button" id="cancelButton">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">stock:gtk-cancel Menu</property>
+                <property name="Label" translatable="yes">_Cancel</property>
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnCancelButtonClicked" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">3</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
           </packing>
         </child>
         <child>
@@ -161,104 +259,12 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Label" id="skippedLabel">
-                <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">skipped</property>
-              </widget>
-              <packing>
-                <property name="PackType">End</property>
-                <property name="Position">1</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.VSeparator" id="vseparator1">
-                <property name="MemberName" />
-              </widget>
-              <packing>
-                <property name="PackType">End</property>
-                <property name="Position">2</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
-            </child>
-            <child>
               <widget class="Gtk.Label" id="playedLabel">
                 <property name="MemberName" />
                 <property name="LabelProp" translatable="yes">played</property>
               </widget>
               <packing>
                 <property name="PackType">End</property>
-                <property name="Position">3</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="Position">3</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Dialog" id="GLogScrobbler.SubmitDialog" design-size="401 114">
-    <property name="MemberName" />
-    <property name="Title" translatable="yes">Scrobbling Status</property>
-    <property name="WindowPosition">CenterOnParent</property>
-    <property name="DefaultHeight">8</property>
-    <property name="DestroyWithParent">True</property>
-    <property name="SkipPagerHint">True</property>
-    <property name="SkipTaskbarHint">True</property>
-    <property name="Buttons">1</property>
-    <property name="HelpButton">False</property>
-    <property name="HasSeparator">False</property>
-    <signal name="Response" handler="OnResponse" />
-    <child internal-child="VBox">
-      <widget class="Gtk.VBox" id="dialog1_VBox">
-        <property name="MemberName" />
-        <property name="BorderWidth">2</property>
-        <child>
-          <widget class="Gtk.VBox" id="vbox2">
-            <property name="MemberName" />
-            <property name="Spacing">6</property>
-            <child>
-              <widget class="Gtk.VBox" id="vbox3">
-                <property name="MemberName" />
-                <property name="Spacing">6</property>
-                <property name="BorderWidth">6</property>
-                <child>
-                  <widget class="Gtk.ProgressBar" id="progressBar">
-                    <property name="MemberName" />
-                    <property name="Text" translatable="yes">Initializing connection...</property>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
-              </widget>
-              <packing>
-                <property name="Position">0</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.HSeparator" id="hseparator1">
-                <property name="MemberName" />
-              </widget>
-              <packing>
                 <property name="Position">1</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
@@ -267,7 +273,7 @@
             </child>
           </widget>
           <packing>
-            <property name="Position">0</property>
+            <property name="Position">4</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -275,33 +281,8 @@
         </child>
       </widget>
     </child>
-    <child internal-child="ActionArea">
-      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
-        <property name="MemberName" />
-        <property name="Spacing">6</property>
-        <property name="BorderWidth">5</property>
-        <property name="Size">1</property>
-        <property name="LayoutStyle">End</property>
-        <child>
-          <widget class="Gtk.Button" id="buttonCancel">
-            <property name="MemberName" />
-            <property name="CanDefault">True</property>
-            <property name="CanFocus">True</property>
-            <property name="UseStock">True</property>
-            <property name="Type">StockItem</property>
-            <property name="StockId">gtk-cancel</property>
-            <property name="ResponseId">-6</property>
-            <property name="label">gtk-cancel</property>
-          </widget>
-          <packing>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
   </widget>
-  <widget class="Gtk.Dialog" id="GLogScrobbler.ChooseDeviceDialog" design-size="396 153">
+  <widget class="Gtk.Dialog" id="GLogScrobbler.ChooseDeviceDialog" design-size="353 121">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Choose Device</property>
     <property name="TypeHint">Dialog</property>
@@ -318,17 +299,19 @@
         <property name="MemberName" />
         <property name="BorderWidth">2</property>
         <child>
-          <widget class="Gtk.VBox" id="vbox2">
+          <widget class="Gtk.VBox" id="upperBox">
             <property name="MemberName" />
             <property name="Spacing">6</property>
+            <property name="BorderWidth">5</property>
             <child>
               <widget class="Gtk.HBox" id="hbox1">
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Image" id="image1">
+                  <widget class="Gtk.Label" id="label1">
                     <property name="MemberName" />
-                    <property name="Pixbuf">stock:gtk-dialog-info Dialog</property>
+                    <property name="LabelProp" translatable="yes">&lt;big&gt;Selected device&lt;/big&gt;</property>
+                    <property name="UseMarkup">True</property>
                   </widget>
                   <packing>
                     <property name="Position">0</property>
@@ -338,39 +321,12 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.VBox" id="vbox3">
+                  <widget class="Gtk.ComboBox" id="devicesBox">
                     <property name="MemberName" />
-                    <property name="Spacing">6</property>
-                    <property name="BorderWidth">6</property>
-                    <child>
-                      <widget class="Gtk.Label" id="textLabel">
-                        <property name="MemberName" />
-                        <property name="Xalign">0</property>
-                        <property name="LabelProp" translatable="yes">Several devices with logs were detected.
-Choose the one you'd like to scrobble:</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.ComboBox" id="devicesBox">
-                        <property name="MemberName" />
-                        <property name="IsTextCombo">False</property>
-                        <property name="Items" translatable="yes" />
-                        <property name="Active">0</property>
-                        <signal name="Changed" handler="OnDevicesBoxChanged" />
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
-                      </packing>
-                    </child>
+                    <property name="IsTextCombo">False</property>
+                    <property name="Items" translatable="yes" />
+                    <property name="Active">0</property>
+                    <signal name="Changed" handler="OnDevicesBoxChanged" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -386,19 +342,47 @@ Choose the one you'd like to scrobble:</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.HSeparator" id="hseparator1">
+              <widget class="Gtk.Expander" id="expander">
                 <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <child>
+                  <widget class="Gtk.FileChooserWidget" id="fileChooser">
+                    <property name="MemberName" />
+                    <property name="WidthRequest">500</property>
+                    <property name="HeightRequest">300</property>
+                    <property name="Action">SelectFolder</property>
+                    <signal name="CurrentFolderChanged" handler="OnFileChooserCurrentFolderChanged" />
+                  </widget>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="GtkLabel13">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Browse for a mountpoint</property>
+                    <property name="UseMarkup">True</property>
+                    <property name="UseUnderline">True</property>
+                  </widget>
+                  <packing>
+                    <property name="type">label_item</property>
+                  </packing>
+                </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
                 <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.HSeparator" id="hseparator1">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="Position">1</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -407,7 +391,7 @@ Choose the one you'd like to scrobble:</property>
       </widget>
     </child>
     <child internal-child="ActionArea">
-      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+      <widget class="Gtk.HButtonBox" id="actionArea">
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <property name="BorderWidth">5</property>
@@ -450,7 +434,7 @@ Choose the one you'd like to scrobble:</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="GLogScrobbler.LastfmAccountDialog" design-size="400 171">
+  <widget class="Gtk.Dialog" id="GLogScrobbler.LastfmAccountDialog" design-size="400 149">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Last.fm Account</property>
     <property name="TypeHint">Dialog</property>
@@ -472,20 +456,6 @@ Choose the one you'd like to scrobble:</property>
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <property name="BorderWidth">3</property>
-            <child>
-              <widget class="Gtk.Label" id="label8">
-                <property name="MemberName" />
-                <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">&lt;b&gt;Enter Last.fm account credentials:&lt;/b&gt;</property>
-                <property name="UseMarkup">True</property>
-              </widget>
-              <packing>
-                <property name="Position">0</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
-            </child>
             <child>
               <widget class="Gtk.VBox" id="vbox2">
                 <property name="MemberName" />
@@ -611,7 +581,7 @@ Choose the one you'd like to scrobble:</property>
                 </child>
               </widget>
               <packing>
-                <property name="Position">1</property>
+                <property name="Position">0</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>

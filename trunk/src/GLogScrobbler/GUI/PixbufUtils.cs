@@ -1,4 +1,4 @@
-// Main.cs
+// PixbufUtils.cs
 // 
 // Copyright (C) 2009 Amr Hassan
 //
@@ -15,24 +15,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
-using Gtk;
-using System.IO;
+using Gdk;
 
 namespace GLogScrobbler
 {
-	class MainClass
+		
+	public class PixbufUtils
 	{
-		public static void Main (string[] args)
+		
+		public static Pixbuf resize(Pixbuf original, int size)
 		{
-			// Configure logging
-			log4net.Config.BasicConfigurator.Configure();
+			double width = Convert.ToDouble(original.Width);
+			double height = Convert.ToDouble(original.Height);
 			
-			Gdk.Threads.Init();
-			Application.Init();
-			GUI.MainWindow win = new GUI.MainWindow();
-			win.Show ();
-			Application.Run ();
+			if (width >= height)
+				return original.ScaleSimple(Convert.ToInt32(size),
+				                            Convert.ToInt32((height/width)*size), InterpType.Bilinear);
+			else
+				return original.ScaleSimple(Convert.ToInt32((width/height)*size), 
+				                            Convert.ToInt32(size), InterpType.Bilinear);
 		}
 	}
 }

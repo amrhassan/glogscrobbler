@@ -1,17 +1,21 @@
-<Combine name="GLogScrobbler" fileversion="2.0" description="A Last.fm log scrobbler for GNOME">
+<Combine releaseversion="0.2" name="GLogScrobbler" fileversion="2.0" description="A Last.fm log scrobbler for GNOME">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="GLogScrobbler" configuration="Debug" />
+      <Entry build="True" name="libart-cil" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="GLogScrobbler" configuration="Release" />
+      <Entry build="True" name="libart-cil" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="GLogScrobbler" single="True">
     <Execute type="None" entry="GLogScrobbler" />
+    <Execute type="None" entry="libart-cil" />
+    <Execute type="None" entry="lastfm-sharp" />
   </StartMode>
-  <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="UpdateNearestChangeLog" />
   <Entries>
     <Entry filename="GLogScrobbler/GLogScrobbler.mdp" />
+    <Entry filename="libart-cil/libart-cil.mdp" />
   </Entries>
 </Combine>

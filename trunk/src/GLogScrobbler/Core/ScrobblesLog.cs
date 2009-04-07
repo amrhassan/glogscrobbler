@@ -21,43 +21,23 @@ using Lastfm.Scrobbling;
 using System.Collections.Generic;
 using System.IO;
 
-namespace GLogScrobbler
+namespace GLogScrobbler.Core
 {
 	
 	
 	public class ScrobblesLog
 	{
-		public PlayedTrack[] PlayedTracks {get; private set;}
+		public Entry[] PlayedTracks {get; private set;}
+		public Entry[] SkippedTracks {get; private set;}
 		public string DeviceString {get; private set;}
 		public string MountPoint {get; private set;}
-		
-		public int PlayedCount
-		{ get {
-				int count = 0;
-				foreach(PlayedTrack track in PlayedTracks)
-					if (track.Mode == ScrobbleMode.Played)
-						count += 1;
-				
-				return count;
-			}
-		}
-		
-		public int SkippedCount
-		{ get {
-				int count = 0;
-				foreach(PlayedTrack track in PlayedTracks)
-					if (track.Mode == ScrobbleMode.Skipped)
-						count += 1;
-				
-				return count;
-			}
-		}
 		
 		public ScrobblesLog(string mountPoint)
 		{
 			MountPoint = mountPoint;
 			StreamReader reader = new StreamReader(Path.Combine(MountPoint, ".scrobbler.log"), true);
-			List<PlayedTrack> tracks = new List<PlayedTrack>();
+			List<Entry> played = new List<Entry>();
+			List<Entry> skipped = new List<Entry>();
 			
 			// Check the Log protocol version
 			if (reader.ReadLine() != "#AUDIOSCROBBLER/1.1")
@@ -86,16 +66,20 @@ namespace GLogScrobbler
 				else if (values[5] == "S")
 					mode = ScrobbleMode.Skipped;
 				
-				PlayedTrack track = new PlayedTrack(values[0], values[2], 
+				Entry track = new Entry(values[0], values[2], 
 				                                    Lastfm.Utilities.TimestampToDateTime(long.Parse(values[6]), kind),
 				                                    PlaybackSource.User, new TimeSpan(0, 0, int.Parse(values[4])),
 				                                    mode, values[1], int.Parse(values[3]),
 				                                    values[7]);
 				
-				tracks.Add(track);
+				if (track.Mode == ScrobbleMode.Played)
+					played.Add(track);
+				else if (track.Mode == ScrobbleMode.Skipped)
+					skipped.Add(track);
 			}
 			
-			PlayedTracks = tracks.ToArray();
+			PlayedTracks = played.ToArray();
+			SkippedTracks = skipped.ToArray();
 		}
 		
 		public void RemoveFromDevice()
@@ -109,15 +93,11 @@ namespace GLogScrobbler
 			if (!Directory.Exists(cacheDir))
 				Directory.CreateDirectory(cacheDir);
 			
-			try
-			{
-				File.Move(Path.Combine(MountPoint, ".scrobbler.log"),
-				          Path.Combine(cacheDir, Lastfm.Utilities.DateTimeToUTCTimestamp(DateTime.Now).ToString()));
-			} catch {
-				MessageHandler.ShowError(null, "Error Removing Log", 
-				                         "For some reason, the log file from " + this.MountPoint + " could not be removed." +
-				                         "\nPlease remove it manually.");
-			}
+			string from = Path.Combine(MountPoint, ".scrobbler.log");
+			string to = Path.Combine(cacheDir, Lastfm.Utilities.DateTimeToUTCTimestamp(DateTime.Now).ToString());
+			
+			File.Copy(from, to);
+			File.Delete(from);
 		}
 	}
 }

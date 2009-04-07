@@ -13,17 +13,19 @@ namespace GLogScrobbler {
     
     public partial class ChooseDeviceDialog {
         
-        private Gtk.VBox vbox2;
+        private Gtk.VBox upperBox;
         
         private Gtk.HBox hbox1;
         
-        private Gtk.Image image1;
-        
-        private Gtk.VBox vbox3;
-        
-        private Gtk.Label textLabel;
+        private Gtk.Label label1;
         
         private Gtk.ComboBox devicesBox;
+        
+        private Gtk.Expander expander;
+        
+        private Gtk.FileChooserWidget fileChooser;
+        
+        private Gtk.Label GtkLabel13;
         
         private Gtk.HSeparator hseparator1;
         
@@ -47,74 +49,73 @@ namespace GLogScrobbler {
             w1.Name = "dialog1_VBox";
             w1.BorderWidth = ((uint)(2));
             // Container child dialog1_VBox.Gtk.Box+BoxChild
-            this.vbox2 = new Gtk.VBox();
-            this.vbox2.Name = "vbox2";
-            this.vbox2.Spacing = 6;
-            // Container child vbox2.Gtk.Box+BoxChild
+            this.upperBox = new Gtk.VBox();
+            this.upperBox.Name = "upperBox";
+            this.upperBox.Spacing = 6;
+            this.upperBox.BorderWidth = ((uint)(5));
+            // Container child upperBox.Gtk.Box+BoxChild
             this.hbox1 = new Gtk.HBox();
             this.hbox1.Name = "hbox1";
             this.hbox1.Spacing = 6;
             // Container child hbox1.Gtk.Box+BoxChild
-            this.image1 = new Gtk.Image();
-            this.image1.Name = "image1";
-            this.image1.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-info", Gtk.IconSize.Dialog, 48);
-            this.hbox1.Add(this.image1);
-            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox1[this.image1]));
+            this.label1 = new Gtk.Label();
+            this.label1.Name = "label1";
+            this.label1.LabelProp = Mono.Unix.Catalog.GetString("<big>Selected device</big>");
+            this.label1.UseMarkup = true;
+            this.hbox1.Add(this.label1);
+            Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox1[this.label1]));
             w2.Position = 0;
             w2.Expand = false;
             w2.Fill = false;
             // Container child hbox1.Gtk.Box+BoxChild
-            this.vbox3 = new Gtk.VBox();
-            this.vbox3.Name = "vbox3";
-            this.vbox3.Spacing = 6;
-            this.vbox3.BorderWidth = ((uint)(6));
-            // Container child vbox3.Gtk.Box+BoxChild
-            this.textLabel = new Gtk.Label();
-            this.textLabel.Name = "textLabel";
-            this.textLabel.Xalign = 0F;
-            this.textLabel.LabelProp = Mono.Unix.Catalog.GetString("Several devices with logs were detected.\nChoose the one you'd like to scrobble:");
-            this.vbox3.Add(this.textLabel);
-            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.vbox3[this.textLabel]));
-            w3.Position = 0;
-            w3.Expand = false;
-            w3.Fill = false;
-            // Container child vbox3.Gtk.Box+BoxChild
             this.devicesBox = new Gtk.ComboBox();
             this.devicesBox.Name = "devicesBox";
             this.devicesBox.Active = 0;
-            this.vbox3.Add(this.devicesBox);
-            Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.vbox3[this.devicesBox]));
-            w4.Position = 1;
+            this.hbox1.Add(this.devicesBox);
+            Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.hbox1[this.devicesBox]));
+            w3.Position = 1;
+            this.upperBox.Add(this.hbox1);
+            Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.upperBox[this.hbox1]));
+            w4.Position = 0;
             w4.Expand = false;
             w4.Fill = false;
-            this.hbox1.Add(this.vbox3);
-            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
-            w5.Position = 1;
-            this.vbox2.Add(this.hbox1);
-            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
-            w6.Position = 0;
-            w6.Expand = false;
-            w6.Fill = false;
-            // Container child vbox2.Gtk.Box+BoxChild
+            // Container child upperBox.Gtk.Box+BoxChild
+            this.expander = new Gtk.Expander(null);
+            this.expander.CanFocus = true;
+            this.expander.Name = "expander";
+            // Container child expander.Gtk.Container+ContainerChild
+            this.fileChooser = new Gtk.FileChooserWidget(((Gtk.FileChooserAction)(2)));
+            this.fileChooser.WidthRequest = 500;
+            this.fileChooser.HeightRequest = 300;
+            this.fileChooser.Name = "fileChooser";
+            this.expander.Add(this.fileChooser);
+            this.GtkLabel13 = new Gtk.Label();
+            this.GtkLabel13.Name = "GtkLabel13";
+            this.GtkLabel13.LabelProp = Mono.Unix.Catalog.GetString("Browse for a mountpoint");
+            this.GtkLabel13.UseMarkup = true;
+            this.GtkLabel13.UseUnderline = true;
+            this.expander.LabelWidget = this.GtkLabel13;
+            this.upperBox.Add(this.expander);
+            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.upperBox[this.expander]));
+            w6.Position = 1;
+            w1.Add(this.upperBox);
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(w1[this.upperBox]));
+            w7.Position = 0;
+            // Container child dialog1_VBox.Gtk.Box+BoxChild
             this.hseparator1 = new Gtk.HSeparator();
             this.hseparator1.Name = "hseparator1";
-            this.vbox2.Add(this.hseparator1);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox2[this.hseparator1]));
-            w7.Position = 1;
-            w7.Expand = false;
-            w7.Fill = false;
-            w1.Add(this.vbox2);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(w1[this.vbox2]));
-            w8.Position = 0;
+            w1.Add(this.hseparator1);
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(w1[this.hseparator1]));
+            w8.Position = 1;
             w8.Expand = false;
             w8.Fill = false;
             // Internal child GLogScrobbler.ChooseDeviceDialog.ActionArea
             Gtk.HButtonBox w9 = this.ActionArea;
-            w9.Name = "dialog1_ActionArea";
+            w9.Name = "actionArea";
             w9.Spacing = 6;
             w9.BorderWidth = ((uint)(5));
             w9.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
-            // Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+            // Container child actionArea.Gtk.ButtonBox+ButtonBoxChild
             this.buttonCancel = new Gtk.Button();
             this.buttonCancel.CanDefault = true;
             this.buttonCancel.CanFocus = true;
@@ -126,7 +127,7 @@ namespace GLogScrobbler {
             Gtk.ButtonBox.ButtonBoxChild w10 = ((Gtk.ButtonBox.ButtonBoxChild)(w9[this.buttonCancel]));
             w10.Expand = false;
             w10.Fill = false;
-            // Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+            // Container child actionArea.Gtk.ButtonBox+ButtonBoxChild
             this.buttonOk = new Gtk.Button();
             this.buttonOk.Sensitive = false;
             this.buttonOk.CanDefault = true;
@@ -143,10 +144,11 @@ namespace GLogScrobbler {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 396;
+            this.DefaultWidth = 353;
             this.Show();
             this.Response += new Gtk.ResponseHandler(this.OnResponse);
             this.devicesBox.Changed += new System.EventHandler(this.OnDevicesBoxChanged);
+            this.fileChooser.CurrentFolderChanged += new System.EventHandler(this.OnFileChooserCurrentFolderChanged);
         }
     }
 }
