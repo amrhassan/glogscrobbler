@@ -27,8 +27,8 @@ namespace GLogScrobbler.Core
 	
 	public class ScrobblesLog
 	{
-		public Entry[] PlayedTracks {get; private set;}
-		public Entry[] SkippedTracks {get; private set;}
+		public List<Entry> PlayedTracks {get; private set;}
+		public List<Entry> SkippedTracks {get; private set;}
 		public string DeviceString {get; private set;}
 		public string MountPoint {get; private set;}
 		
@@ -78,8 +78,8 @@ namespace GLogScrobbler.Core
 					skipped.Add(track);
 			}
 			
-			PlayedTracks = played.ToArray();
-			SkippedTracks = skipped.ToArray();
+			PlayedTracks = played;
+			SkippedTracks = skipped;
 		}
 		
 		public void RemoveFromDevice()

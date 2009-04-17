@@ -257,6 +257,7 @@ namespace GLogScrobbler.GUI {
             this.ShowArtAction.Toggled += new System.EventHandler(this.OnShowArtActionToggled);
             this.clearAction.Activated += new System.EventHandler(this.OnClearActionActivated);
             this.CancelSubmitAction.Activated += new System.EventHandler(this.OnCancelSubmitActionActivated);
+            this.TracksTreeView.RowActivated += new Gtk.RowActivatedHandler(this.OnTracksTreeViewRowActivated);
             this.cancelButton.Clicked += new System.EventHandler(this.OnCancelButtonClicked);
         }
     }

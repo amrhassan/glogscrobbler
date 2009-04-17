@@ -192,6 +192,7 @@
                 <property name="ShowScrollbars">True</property>
                 <property name="HeadersVisible">False</property>
                 <property name="RulesHint">True</property>
+                <signal name="RowActivated" handler="OnTracksTreeViewRowActivated" />
               </widget>
             </child>
           </widget>
@@ -630,6 +631,123 @@
             <property name="StockId">gtk-ok</property>
             <property name="ResponseId">-5</property>
             <property name="label">gtk-ok</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Dialog" id="GLogScrobbler.ViewTrackDialog" design-size="379 137">
+    <property name="MemberName" />
+    <property name="TypeHint">Dialog</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="DestroyWithParent">True</property>
+    <property name="SkipTaskbarHint">True</property>
+    <property name="Buttons">2</property>
+    <property name="HelpButton">False</property>
+    <property name="HasSeparator">False</property>
+    <signal name="Response" handler="OnResponse" />
+    <child internal-child="VBox">
+      <widget class="Gtk.VBox" id="dialog1_VBox">
+        <property name="MemberName" />
+        <property name="BorderWidth">2</property>
+        <child>
+          <widget class="Gtk.VBox" id="vbox2">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.HBox" id="hbox2">
+                <property name="MemberName" />
+                <property name="Spacing">10</property>
+                <property name="BorderWidth">3</property>
+                <child>
+                  <widget class="Gtk.Image" id="artImage">
+                    <property name="MemberName" />
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="descriptionLabel">
+                    <property name="MemberName" />
+                    <property name="Xalign">0</property>
+                    <property name="LabelProp" translatable="yes">label1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HSeparator" id="hseparator1">
+                <property name="MemberName" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+    <child internal-child="ActionArea">
+      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <property name="BorderWidth">5</property>
+        <property name="Size">2</property>
+        <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonLastfm">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextAndIcon</property>
+            <property name="Icon">resource:LastFM_16.png</property>
+            <property name="Label" translatable="yes">Last.fm Page</property>
+            <property name="UseUnderline">True</property>
+            <property name="ResponseId">666</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonClose">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-close</property>
+            <property name="ResponseId">-7</property>
+            <property name="label">gtk-close</property>
           </widget>
           <packing>
             <property name="Position">1</property>
