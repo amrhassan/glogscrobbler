@@ -54,8 +54,10 @@ namespace GLogScrobbler.GUI
 		
 		private void OnUnhandledException(GLib.UnhandledExceptionArgs args)
 		{
-			MessageHandler.ShowException(this, "An unhandled exception has occured.",
-			                             (Exception)args.ExceptionObject);
+			Gdk.Threads.Enter();
+			MessageHandler.ShowException(this, "An unhandled exception has occured.", (Exception)args.ExceptionObject);
+			Gdk.Threads.Leave();
+			
 			args.ExitApplication = false;
 		}
 		
@@ -333,7 +335,9 @@ namespace GLogScrobbler.GUI
 				connection.Initialize();
 			}
 			catch (Exception e) {
+				Gdk.Threads.Enter();
 				MessageHandler.ShowException(this, "An unexpected error has occured.\nPlease try again in a few minutes.", e);
+				Gdk.Threads.Leave();
 				
 				progressBox.Visible = false;
 				update();
@@ -358,7 +362,9 @@ namespace GLogScrobbler.GUI
 					log.Info("Scrobbling " + track.Artist + " - " + track.TimeStarted);
 					connection.Scrobble(track);
 				} catch (Exception e) {
+					Gdk.Threads.Enter();
 					MessageHandler.ShowException(this, "An unexpected error has occured.\nPlease try again in a few minutes.", e);
+					Gdk.Threads.Leave();
 					progressBox.Visible = false;
 					update();
 				
@@ -453,8 +459,10 @@ namespace GLogScrobbler.GUI
 					string message = "For some reason, the log file from " + scrobblesLog.MountPoint + 
 						@" could not be removed.\nPlease remove it manually.
 							\nHint: Try unmounting then mounting your device.";
-							
+					
+				  Gdk.Threads.Enter();
 					MessageHandler.ShowError(null, "Error Removing Log.", message);
+				  Gdk.Threads.Leave();
 				}
 		}
 
