@@ -443,7 +443,9 @@ namespace GLogScrobbler.GUI
 			removeLog();
 			
 			treeModel.Clear();
+			scrobblesLog = null;
 			mapping = null;
+			treeIters = null;
 			OpenAction.Sensitive = true;
 			clearAction.Sensitive = false;
 			update();
