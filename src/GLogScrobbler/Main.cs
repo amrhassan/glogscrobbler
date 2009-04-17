@@ -28,11 +28,20 @@ namespace GLogScrobbler
 			// Configure logging
 			log4net.Config.BasicConfigurator.Configure();
 			
-			Gdk.Threads.Init();
-			Application.Init();
-			GUI.MainWindow win = new GUI.MainWindow();
-			win.Show ();
-			Application.Run ();
+			if (args.Length > 0)
+			{
+				// CLI
+				CLI.Main.Init(args);
+			}
+			else
+			{
+				// GUI
+				Gdk.Threads.Init();
+				Application.Init();
+				GUI.MainWindow win = new GUI.MainWindow();
+				win.Show ();
+				Application.Run ();
+			}
 		}
 	}
 }

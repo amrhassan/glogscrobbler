@@ -30,7 +30,8 @@ namespace GLogScrobbler.GUI
 	{
 		ScrobblesLog scrobblesLog;
 		ListStore treeModel;
-		Dictionary<Lastfm.Scrobbling.Entry, Gtk.TreeIter> entryTreeIterMap;
+		DoubleMapping<Lastfm.Scrobbling.Entry, Gtk.TreeIter> mapping;
+		List<TreeIter> treeIters;
 		Thread scrobblerThread;
 		bool scrobblerThreadAbortRequested;
 		Thread artThread;
@@ -83,7 +84,8 @@ namespace GLogScrobbler.GUI
 			column.AddAttribute(text, "markup", 1);
 			
 			scrobblesLog = null;
-			entryTreeIterMap = null;
+			mapping = null;
+			treeIters = null;
 		}
 				
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -153,7 +155,7 @@ namespace GLogScrobbler.GUI
 			fillList();
 			
 			statusLabel.Text = scrobblesLog.DeviceString + " at " + scrobblesLog.MountPoint;
-			playedLabel.Text = scrobblesLog.PlayedTracks.Length + " tracks";
+			playedLabel.Text = scrobblesLog.PlayedTracks.Count + " tracks";
 			
 			SubmitAction.Sensitive = true;
 			clearAction.Sensitive = true;
@@ -165,7 +167,8 @@ namespace GLogScrobbler.GUI
 			log.Info("Filling list");
 			
 			treeModel = new ListStore(typeof(Gdk.Pixbuf), typeof(string));
-			entryTreeIterMap = new Dictionary<Lastfm.Scrobbling.Entry,TreeIter>();
+			mapping = new DoubleMapping<Lastfm.Scrobbling.Entry,TreeIter>();
+			treeIters = new List<TreeIter>();
 			
 			// temp cover
 			Gdk.Pixbuf noCover = 
@@ -203,7 +206,8 @@ namespace GLogScrobbler.GUI
 					treeModel.SetValue(iter, 0, noCover);
 
 				// Map the Entry to a TreeIter
-				entryTreeIterMap.Add(track, iter);
+				mapping.AddMapping(iter, track);
+				treeIters.Add(iter);
 				
 				// set the markup
 				treeModel.SetValue(iter, 1, markup);
@@ -247,8 +251,8 @@ namespace GLogScrobbler.GUI
 				Gdk.Pixbuf p = PixbufUtils.resize(new Gdk.Pixbuf(filePath), 65);
 				
 				// Check that the track is still mapped to a TreeIter first
-				if (entryTreeIterMap.ContainsKey(track))
-					treeModel.SetValue(entryTreeIterMap[track], 0, p);
+				if (mapping.ContainsKey(track))
+					treeModel.SetValue(mapping.Map(track), 0, p);
 				
 				Gdk.Threads.Leave();
 			}
@@ -339,36 +343,32 @@ namespace GLogScrobbler.GUI
 			
 			// Start submitting
 			int progress = 0;
-			int max = scrobblesLog.PlayedTracks.Length;
+			int max = scrobblesLog.PlayedTracks.Count;
 			foreach(Lastfm.Scrobbling.Entry track in scrobblesLog.PlayedTracks)
 			{
 				if (scrobblerThreadAbortRequested)
 					return;
 				
-				if (track.Mode == ScrobbleMode.Played)
+				Gdk.Threads.Enter();
+				updateScrobblerProgressBar(++progress, max, "Scrobbling " + track.Artist + " - " + track.Title);
+				Gdk.Threads.Leave();
+			
+				try
 				{
-					Gdk.Threads.Enter();
-					updateScrobblerProgressBar(++progress, max, "Scrobbling " + track);
-					Gdk.Threads.Leave();
-					
-					try
-					{
-						log.Info("Scrobbling " + track.Artist + " - " + track.TimeStarted);
-						connection.Scrobble(track);
-					} catch (Exception e) {
-						MessageHandler.ShowException(this, "An unexpected error has occured.\nPlease try again in a few minutes.", e);
-
-						progressBox.Visible = false;
-						update();
-						
-						return;
-					}		
-				}
+					log.Info("Scrobbling " + track.Artist + " - " + track.TimeStarted);
+					connection.Scrobble(track);
+				} catch (Exception e) {
+					MessageHandler.ShowException(this, "An unexpected error has occured.\nPlease try again in a few minutes.", e);
+					progressBox.Visible = false;
+					update();
+				
+					return;
+				}		
 			}
 			
 			if (SettingsProxy.DeleteLog)
 				removeLog();
-			
+		
 			Gdk.Threads.Enter();
 			progressBox.Visible = false;
 			treeModel.Clear();
@@ -376,7 +376,7 @@ namespace GLogScrobbler.GUI
 			update();
 			Gdk.Threads.Leave();
 		}
-
+		
 		protected virtual void OnAboutActionActivated (object sender, System.EventArgs e)
 		{
 			Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -437,8 +437,7 @@ namespace GLogScrobbler.GUI
 			removeLog();
 			
 			treeModel.Clear();
-			scrobblesLog = null;
-			entryTreeIterMap = null;
+			mapping = null;
 			OpenAction.Sensitive = true;
 			clearAction.Sensitive = false;
 			update();
@@ -462,6 +461,20 @@ namespace GLogScrobbler.GUI
 		protected virtual void OnCancelButtonClicked (object sender, System.EventArgs e)
 		{
 			CancelSubmitAction.Activate();
+		}
+
+		protected virtual void OnTracksTreeViewRowActivated (object o, Gtk.RowActivatedArgs args)
+		{
+			int i = args.Path.Indices[0];
+			TreeIter iter;
+			
+			if (i > treeIters.Count)
+				return;
+			
+			iter = treeIters[i];
+			
+			if (mapping.ContainsKey(iter))
+				(new ViewTrackDialog(this, mapping.Map(iter))).ShowAll();
 		}
 	}
 }
