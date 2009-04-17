@@ -27,7 +27,6 @@ namespace GLogScrobbler
 	{
 		public static void ShowError(Window parent, string title, string description)
 		{
-			Gdk.Threads.Enter();
 			MessageDialog dialog = new MessageDialog(parent, DialogFlags.DestroyWithParent,
 			                                         MessageType.Error, ButtonsType.Ok, "");
 			dialog.Markup = description;
@@ -35,27 +34,22 @@ namespace GLogScrobbler
 			
 			dialog.Run();
 			dialog.Destroy();
-			Gdk.Threads.Leave();
 		}
 		
 		public static void ShowInfo(Window parent, string title, string description)
 		{
-			Gdk.Threads.Enter();
-			MessageDialog dialog = new MessageDialog(parent, DialogFlags.DestroyWithParent | DialogFlags.Modal,
+			MessageDialog dialog = new MessageDialog(parent, DialogFlags.DestroyWithParent,
 			                                         MessageType.Info, ButtonsType.Ok, "");
 			dialog.Text = description;
 			dialog.Title = title;
 						
 			dialog.Run();
 			dialog.Destroy();
-			Gdk.Threads.Leave();
 		}
 		
 		public static void ShowException(Window parent, string description, Exception exception)
 		{
-			MessageHandler.ShowError(parent, exception.Message,
-			                         description + "\n\n" +
-			                         exception.ToString());
+			MessageHandler.ShowError(parent, exception.Message, description + "\n\n" + exception.ToString());
 		}
 	}
 }
