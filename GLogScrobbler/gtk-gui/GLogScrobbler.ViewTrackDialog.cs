@@ -131,8 +131,8 @@ namespace GLogScrobbler {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 379;
-            this.DefaultHeight = 137;
+            this.DefaultWidth = 428;
+            this.DefaultHeight = 108;
             this.Show();
             this.Response += new Gtk.ResponseHandler(this.OnResponse);
         }

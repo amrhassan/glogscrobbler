@@ -244,7 +244,7 @@ namespace GLogScrobbler.GUI {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 528;
+            this.DefaultWidth = 568;
             this.DefaultHeight = 405;
             this.TracksTreeView.HasDefault = true;
             this.progressBox.Hide();
