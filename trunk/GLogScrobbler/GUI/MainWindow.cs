@@ -135,6 +135,7 @@ namespace GLogScrobbler.GUI
 			SettingsProxy.AddRecentMountpoint(mountPoint);
 			
 			scrobblesLog = new ScrobblesLog(mountPoint);
+			log.Debug("NEW LOG");
 			update();
 		}
 		
@@ -173,22 +174,16 @@ namespace GLogScrobbler.GUI
 			treeIters = new List<TreeIter>();
 			
 			// temp cover
-			Gdk.Pixbuf noCover = 
-				PixbufUtils.resize(Gdk.Pixbuf.LoadFromResource("album.png"), 50);
+			// Gdk.Pixbuf noCover = new Gdk.Pixbuf("/home/amr/Dropbox/projects/GLogScrobbler/trunk/GLogScrobbler/resources");
+			Gdk.Pixbuf noCover = Gdk.Pixbuf.LoadFromResource("album.png");
+			noCover = PixbufUtils.resize(noCover, 50);
 			
 			// The tracks from the log
-			List<Lastfm.Scrobbling.Entry> tracks = 
-				new List<Lastfm.Scrobbling.Entry>(scrobblesLog.PlayedTracks);
+			List<Lastfm.Scrobbling.Entry> tracks = scrobblesLog.PlayedTracks;
 			
 			// Reverse the list if it's NewestFirst
 			if (SettingsProxy.NewestFirst)
-			{
-				Lastfm.Scrobbling.Entry[] old_tracks = tracks.ToArray();
-				tracks = new List<Lastfm.Scrobbling.Entry>();
-				
-				for (int i=old_tracks.Length-1; i>-1; i--)
-					tracks.Add(old_tracks[i]);
-			}					
+				tracks.Reverse();
 
 			// Work the magic on each track
 			foreach(Lastfm.Scrobbling.Entry track in tracks)
@@ -302,6 +297,8 @@ namespace GLogScrobbler.GUI
 			OpenAction.Sensitive = false;
 			SubmitAction.Sensitive = false;
 			clearAction.Sensitive = false;
+			ViewAction.Sensitive = false;
+			LastFmAccountAction.Sensitive = false;
 
 			log.Info("Starting scrobbling");
 			scrobblerThread = new Thread(new ThreadStart(this.scrobble));
@@ -377,6 +374,8 @@ namespace GLogScrobbler.GUI
 		
 			Gdk.Threads.Enter();
 			progressBox.Visible = false;
+			ViewAction.Sensitive = true;
+			LastFmAccountAction.Sensitive = true;
 			treeModel.Clear();
 			scrobblesLog = null;
 			update();
@@ -395,7 +394,7 @@ namespace GLogScrobbler.GUI
 			dialog.Copyright = "Copyright © 2009 Amr Hassan";
 			dialog.LogoIconName = "gtk-go-up";
 			dialog.ProgramName = "GNOME Log Scrobbler " + 
-				v.Major + "." + v.Minor + "." + v.MajorRevision;
+				v.Major + "." + v.Minor + "." + v.Build;
 			dialog.Title = "About GNOME Log Scrobbler";
 			dialog.Run();
 			dialog.Destroy();
@@ -424,6 +423,8 @@ namespace GLogScrobbler.GUI
 			OpenAction.Sensitive = true;
 			SubmitAction.Sensitive = true;
 			clearAction.Sensitive = true;
+			ViewAction.Sensitive = true;
+			LastFmAccountAction.Sensitive = true;
 		}
 
 		protected virtual void OnClearActionActivated (object sender, System.EventArgs e)
@@ -476,6 +477,7 @@ namespace GLogScrobbler.GUI
 		protected virtual void OnTracksTreeViewRowActivated (object o, Gtk.RowActivatedArgs args)
 		{
 			int i = args.Path.Indices[0];
+			
 			TreeIter iter;
 			
 			if (i > treeIters.Count)
@@ -484,7 +486,10 @@ namespace GLogScrobbler.GUI
 			iter = treeIters[i];
 			
 			if (mapping.ContainsKey(iter))
-				(new ViewTrackDialog(this, mapping.Map(iter))).ShowAll();
+			{
+				ViewTrackDialog dialog = new ViewTrackDialog(this, mapping.Map(iter));
+				dialog.ShowAll();
+			}
 		}
 	}
 }

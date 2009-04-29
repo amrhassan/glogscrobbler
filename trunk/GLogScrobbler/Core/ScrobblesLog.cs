@@ -58,7 +58,10 @@ namespace GLogScrobbler.Core
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine();
-				string[] values = line.Split('\t');
+				
+				// Worst case scenario, all vlaues are missing and the whole line is empty
+				List<string> values = new List<string>(line.Split('\t'));
+				values.AddRange(new string[] {"", "", "", "", "", "", "", ""});
 				
 				ScrobbleMode mode = ScrobbleMode.Played;
 				if (values[5] == "L")
@@ -66,11 +69,23 @@ namespace GLogScrobbler.Core
 				else if (values[5] == "S")
 					mode = ScrobbleMode.Skipped;
 				
-				Entry track = new Entry(values[0], values[2], 
-				                                    Lastfm.Utilities.TimestampToDateTime(long.Parse(values[6]), kind),
-				                                    PlaybackSource.User, new TimeSpan(0, 0, int.Parse(values[4])),
-				                                    mode, values[1], int.Parse(values[3]),
-				                                    values[7]);
+				/*
+				 public Entry(string artist, string title, 
+				 DateTime timeStarted, PlaybackSource source, 
+				 TimeSpan duration, ScrobbleMode mode, string album, int trackNumber, string mbid)
+				 */
+				
+				string artist = values[0];
+				string title = values[2];
+				DateTime timeStarted = Lastfm.Utilities.TimestampToDateTime(long.Parse(values[6]), kind);
+				PlaybackSource source = PlaybackSource.User;
+				TimeSpan duration = new TimeSpan(0, 0, int.Parse(values[4]));
+				string album = values[1];
+				int number = 0;
+				try { number = Int32.Parse(values[3]); } catch {}
+				string mbid = values[7];
+				
+				Entry track = new Entry(artist, title, timeStarted, source, duration, mode, album, number, mbid);
 				
 				if (track.Mode == ScrobbleMode.Played)
 					played.Add(track);

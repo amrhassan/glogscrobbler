@@ -88,7 +88,7 @@ namespace GLogScrobbler
 		public static bool NewestFirst
 		{
 			get {
-				return (bool)getValue("show_newest_first", false);
+				return (bool)getValue("show_newest_first", true);
 			}
 			set {
 				setValue("show_newest_first", value);
