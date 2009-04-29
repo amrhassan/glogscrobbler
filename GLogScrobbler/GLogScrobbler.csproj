@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{91A50879-4390-4A67-9361-29B34EF8DD11}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>GLogScrobbler</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <AssemblyKeyFile>.</AssemblyKeyFile>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AssemblyKeyFile>.</AssemblyKeyFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gtk-gui\gui.stetic" />
+    <EmbeddedResource Include="resources\album.png" />
+    <EmbeddedResource Include="resources\LastFM_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="gtk-gui\GLogScrobbler.ChooseDeviceDialog.cs" />
+    <Compile Include="gtk-gui\GLogScrobbler.LastfmAccountDialog.cs" />
+    <Compile Include="Core\DeviceDetector.cs" />
+    <Compile Include="GUI\MainWindow.cs" />
+    <Compile Include="GUI\LastfmAccountDialog.cs" />
+    <Compile Include="GUI\ChooseDeviceDialog.cs" />
+    <Compile Include="GUI\MessageHandler.cs" />
+    <Compile Include="gtk-gui\GLogScrobbler.GUI.MainWindow.cs" />
+    <Compile Include="Core\ScrobblesLog.cs" />
+    <Compile Include="Core\SettingsProxy.cs" />
+    <Compile Include="Core\RelativeTime.cs" />
+    <Compile Include="GUI\PixbufUtils.cs" />
+    <Compile Include="Core\DoubleMapping.cs" />
+    <Compile Include="GUI\ViewTrackDialog.cs" />
+    <Compile Include="gtk-gui\GLogScrobbler.ViewTrackDialog.cs" />
+    <Compile Include="CLI\Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="glogscrobbler.desktop" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="GUI\" />
+    <Folder Include="CLI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System" />
+    <Reference Include="gnome-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <Package>log4net-1.2</Package>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="gconf-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="lastfm-sharp, Version=0.2.1.25246, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lastfm-sharp\lastfm-sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libart-cil\libart-cil.csproj">
+      <Project>{51A8DE9C-2378-4AE3-B10D-FF1E09D561F4}</Project>
+      <Name>libart-cil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
