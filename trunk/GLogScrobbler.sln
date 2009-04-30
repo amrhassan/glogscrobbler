@@ -22,6 +22,7 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		description = A Last.fm log scrobbler for GNOME
+		version = 0.2.1
 		StartupItem = GLogScrobbler\GLogScrobbler.csproj
 		releaseversion = 0.2
 		name = GLogScrobbler
