@@ -2,11 +2,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=Application
-Name=glogscrobbler
+Name=GNOME Log Scrobbler
 Exec=glogscrobbler
 Terminal=false
 GenericName=A Last.fm Log Scrobbler
-Comment=Upload .scrobbler.log files to Last.fm
 Icon=gtk-go-up
-MimeType=text/x-log;
+Comment=Upload scrobbler logs to Last.fm
+MimeType=text/log;
 Categories=Audio;AudioVideo;

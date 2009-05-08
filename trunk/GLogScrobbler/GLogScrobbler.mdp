@@ -1,17 +1,18 @@
 <Project releaseversion="0.1" name="GLogScrobbler" fileversion="2.0" language="C#" Configuration="Debug" Platform="AnyCPU" ApplicationIcon="." AssemblyName="GLogScrobbler" TargetFrameworkVersion="v2.0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" Optimize="true" DefineConstants="DEBUG" WarningLevel="3" CheckForOverflowUnderflow="true" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/Debug/" assemblyKeyFile="/home/amr/Desktop/tst/GLogScrobbler" assembly="GLogScrobbler" />
+      <Output directory="bin/Debug/" assemblyKeyFile="/home/amr/Desktop/tst/GLogScrobbler" assembly="GLogScrobbler" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr.version="Net_2_0" />
       <EnvironmentVariables />
       <CodeGeneration compiler="Mcs" warninglevel="3" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" Optimize="true" WarningLevel="4" CheckForOverflowUnderflow="true" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/Release" assemblyKeyFile="/home/amr/Desktop/tst/GLogScrobbler" assembly="GLogScrobbler" />
+      <Output directory="bin/Release" assemblyKeyFile="/home/amr/Desktop/tst/GLogScrobbler" assembly="GLogScrobbler" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr.version="Net_2_0" />
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <EnvironmentVariables />
+      <CodeGeneration compiler="Mcs" warninglevel="3" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
@@ -40,7 +41,7 @@
     <File name="Core" subtype="Directory" buildaction="Nothing" />
     <File name="GUI" subtype="Directory" buildaction="Nothing" />
     <File name="CLI" subtype="Directory" buildaction="Nothing" />
-    <File name="glogscrobbler.desktop" subtype="Code" DeployService.TargetDirectoryId="Linux.DesktopApplications" buildaction="FileCopy" />
+    <File name="glogscrobbler.desktop" subtype="Code" buildaction="Nothing" DeployService.TargetDirectoryId="Linux.DesktopApplications" Gettext.ScanForTranslations="False" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" specificVersion="False" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -56,6 +57,5 @@
     <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../lastfm-sharp/lastfm-sharp.dll" />
     <ProjectReference type="Project" localcopy="True" refto="libart-cil" />
   </References>
-  <LanguageParameters ApplicationIcon="." ctype="CSharpProjectParameters" />
   <Deployment.LinuxDeployData />
 </Project>

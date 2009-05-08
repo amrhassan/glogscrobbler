@@ -3,18 +3,22 @@
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="GLogScrobbler" configuration="Debug" />
       <Entry build="True" name="libart-cil" configuration="Debug" />
+      <Entry build="True" name="tarball" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="GLogScrobbler" configuration="Release" />
       <Entry build="True" name="libart-cil" configuration="Release" />
+      <Entry build="True" name="tarball" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="GLogScrobbler" single="True">
     <Execute type="None" entry="GLogScrobbler" />
     <Execute type="None" entry="libart-cil" />
+    <Execute type="None" entry="tarball" />
   </StartMode>
   <Entries>
     <Entry filename="GLogScrobbler/GLogScrobbler.mdp" />
     <Entry filename="libart-cil/libart-cil.mdp" />
+    <Entry filename="tarball.mdse" />
   </Entries>
 </Combine>
